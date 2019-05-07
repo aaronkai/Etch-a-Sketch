@@ -8,20 +8,46 @@ function getRandomColor() {
 }
 
 
-const container = document.querySelector('#container');
+const sketchpad = document.querySelector('#sketchpad');
 
 //create 16x16 grid
 for (i = 1; i <= 16 * 16; i++) {
 	var box = document.createElement('div');
 	box.classList.add('item');
 	box.textContent = `${i}`;
-	container.appendChild(box);
+	sketchpad.appendChild(box);
 }
 
 var boxes = document.querySelectorAll('.item');
 boxes.forEach((box) => {
 	box.addEventListener('mouseenter', (e) => {
-			var color = getRandomColor();
-			e.target.style.background = `${color}`;
-		});
+		var color = getRandomColor();
+		e.target.style.background = `${color}`;
+	});
+});
+
+//lets make a reset button and redraw the grid
+var resetButton = document.querySelector('#reset')
+resetButton.addEventListener('click', () => {
+	boxes.forEach((box) => {
+		box.style.background = "white";
+	})
+	var newGrid = prompt("What size would you like the new grid to be?");
+	if ( !isNaN(newGrid)) {
+		boxes.forEach((box) => {
+			box.remove();
+		})
+		sketchpad.innerHTML = `<style>#sketchpad {
+			grid-area: main; 
+			display: grid;	
+			grid-template-columns: repeat(${newGrid}, 1fr) !important;	
+			grid-template-rows: repeat(${newGrid}, 1fr); !important} 
+			</style>`
+		for (i = 1; i <= newGrid * newGrid; i++) {
+			var box = document.createElement('div');
+			box.classList.add('item');
+			box.textContent = `${i}`;
+			sketchpad.appendChild(box);
+		}
+	}
 });
