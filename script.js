@@ -29,11 +29,8 @@ boxes.forEach((box) => {
 //lets make a reset button and redraw the grid
 var resetButton = document.querySelector('#reset')
 resetButton.addEventListener('click', () => {
-	boxes.forEach((box) => {
-		box.style.background = "white";
-	})
 	var newGrid = prompt("What size would you like the new grid to be?");
-	if ( !isNaN(newGrid)) {
+	if (!isNaN(newGrid)) {
 		boxes.forEach((box) => {
 			box.remove();
 		})
@@ -41,7 +38,7 @@ resetButton.addEventListener('click', () => {
 			grid-area: main; 
 			display: grid;	
 			grid-template-columns: repeat(${newGrid}, 1fr) !important;	
-			grid-template-rows: repeat(${newGrid}, 1fr); !important} 
+			grid-template-rows: repeat(${newGrid}, 1fr) !important;} 
 			</style>`
 		for (i = 1; i <= newGrid * newGrid; i++) {
 			var box = document.createElement('div');
@@ -49,5 +46,12 @@ resetButton.addEventListener('click', () => {
 			box.textContent = `${i}`;
 			sketchpad.appendChild(box);
 		}
+		boxes = document.querySelectorAll('.item');
+		boxes.forEach((box) => {
+			box.addEventListener('mouseenter', (e) => {
+				var color = getRandomColor();
+				e.target.style.background = `${color}`;
+			});
+		});
 	}
 });

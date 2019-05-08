@@ -7,6 +7,10 @@
 		". main ."
 }
 
+header {
+	padding: 10px;
+}
+
 #sketchpad {
 	grid-area: main;
   display: grid;
@@ -15,8 +19,8 @@
 }
 
 .item { 
-  width: 50px;
-  height: 50px;
+	place-self: stretch stretch;
+	height: 50px;
 }
 
 header {
